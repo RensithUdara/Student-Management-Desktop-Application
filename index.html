@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f2f5;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            max-width: 450px;
+            width: 100%;
+            box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        .input-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #3498db;
+            border: none;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #2980b9;
+        }
+        .students-list {
+            margin-top: 25px;
+        }
+        .student-item {
+            background: #f9f9f9;
+            padding: 15px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .student-item div {
+            font-size: 16px;
+            color: #444;
+        }
+        .student-item span {
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Student Management</h2>
+    <div class="input-group">
+        <label for="name">Student Name</label>
+        <input type="text" id="name" placeholder="Enter student name">
+    </div>
+    <div class="input-group">
+        <label for="age">Age</label>
+        <input type="number" id="age" placeholder="Enter student age">
+    </div>
+    <div class="input-group">
+        <label for="grade">Class/Grade</label>
+        <input type="text" id="grade" placeholder="Enter class/grade (e.g., 10th, 5th)">
+    </div>
+    <button class="btn" onclick="addStudent()">Add Student</button>
+    
+    <div class="students-list" id="studentsList">
+        <!-- Student items will be added here -->
+    </div>
+</div>
+
+<script>
+    const students = [];
+
+    function addStudent() {
+        const nameInput = document.getElementById('name');
+        const ageInput = document.getElementById('age');
+        const gradeInput = document.getElementById('grade');
+        
+        const name = nameInput.value.trim();
+        const age = ageInput.value.trim();
+        const grade = gradeInput.value.trim();
+        
+        if (name && age && grade) {
+            const student = { name, age, grade };
+            students.push(student);
+            displayStudents();
+            nameInput.value = '';
+            ageInput.value = '';
+            gradeInput.value = '';
+        } else {
+            alert("Please enter name, age, and class/grade.");
+        }
+    }
+
+    function displayStudents() {
+        const studentsList = document.getElementById('studentsList');
+        studentsList.innerHTML = '';
+        students.forEach((student, index) => {
+            const studentItem = document.createElement('div');
+            studentItem.className = 'student-item';
+            studentItem.innerHTML = `
+                <div><span>${index + 1}.</span> ${student.name} - Age: ${student.age}</div>
+                <div>Class/Grade: <span>${student.grade}</span></div>
+            `;
+            studentsList.appendChild(studentItem);
+        });
+    }
+</script>
+
+</body>
+</html>
